@@ -1,0 +1,295 @@
+/* Reset and Basic Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f2f5; /* Light, modern background */
+    color: #333;
+    overflow: hidden; /* Prevent body scrollbars when app-container is 100vh */
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+.app-header {
+    background-color: #4A90E2; /* Modern blue */
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000; /* Keep header on top */
+}
+
+.app-header h1 {
+    font-size: 1.4em;
+    font-weight: 500;
+    margin: 0;
+}
+
+.main-content {
+    flex-grow: 1; /* Takes up remaining vertical space */
+    overflow-y: auto; /* Allows scrolling for selection/MCQ areas if they get too tall */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center selection/MCQ cards */
+}
+
+/* Styling for selection and MCQ areas (initial state) */
+#selection-area, #mcq-area, #advanced-mcq-area {
+    background-color: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+#selection-area h2, #mcq-area h2, #advanced-mcq-area h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+select, input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db; /* Softer border */
+    border-radius: 6px;
+    font-size: 0.95em;
+}
+select:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+button {
+    display: inline-block;
+    background: #5cb85c; /* Green for primary actions */
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover:not(:disabled) {
+    background: #4a9d4a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+button:disabled {
+    background: #bcc3ca;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* --- Learning Flow Area Specific Styles --- */
+#learning-flow-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%; /* Fill the main-content area when active */
+    max-width: none;
+    padding: 0; 
+    background-color: #ffffff; /* White background for the chat area */
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden; /* Contains its children */
+}
+
+/* Class added to main-content when learning flow is active */
+.main-content.learning-active {
+    padding: 0; /* Remove padding from main-content */
+    align-items: stretch; /* Allow learning-flow-area to stretch */
+    overflow-y: hidden; /* Prevent scrollbars on main-content itself */
+}
+
+#chat-log-container {
+    flex-grow: 1; /* Chat log takes most of the space */
+    overflow-y: auto; /* Enable scrolling for chat messages */
+    padding: 15px;
+    background-color: #f7f7f7; /* Slightly different background for chat area */
+}
+
+#chat-log {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Spacing between messages */
+}
+
+.chat-message {
+    padding: 10px 14px;
+    border-radius: 18px;
+    max-width: 78%;
+    word-wrap: break-word;
+    line-height: 1.45;
+    font-size: 0.95em;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+}
+.chat-message strong { font-weight: 600; }
+.chat-message br { display: block; margin-bottom: 0.3em; content: "";}
+
+
+.chat-message.tutor {
+    background-color: #e9e9eb; /* Light grey for tutor */
+    color: #2c2c2c;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px; /* "Tail" effect */
+}
+
+.chat-message.user {
+    background-color: #4A90E2; /* Theme blue for user */
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px; /* "Tail" effect */
+}
+
+#problem-options-area {
+    padding: 10px 15px;
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    display: flex; /* For better button alignment and wrapping */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.problem-option-btn {
+    background-color: #6c757d; /* Neutral button color */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin: 0; /* Gap handles spacing */
+    border-radius: 20px; /* Pill-shaped buttons */
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+.problem-option-btn:hover { background-color: #5a6268; }
+
+#learning-controls {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fdfdfd;
+    border-top: 1px solid #e7e7e7;
+    gap: 10px; /* Space between input area and next button */
+}
+
+#user-input-area {
+    flex-grow: 1;
+    display: flex;
+}
+
+#user-input-area input[type="text"] {
+    flex-grow: 1;
+    margin-bottom: 0;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 10px 12px;
+}
+
+#user-input-area button#send-chat-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #4A90E2;
+    padding: 10px 15px;
+}
+#user-input-area button#send-chat-btn:hover { background-color: #357ABD; }
+
+#next-step-btn {
+    background-color: #28a745; /* A different green for "Next" */
+    padding: 10px 20px;
+    white-space: nowrap; /* Prevent "Next" button from wrapping text */
+}
+#next-step-btn:hover { background-color: #218838; }
+
+
+/* Status Message Styling - Toast-like */
+#status-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background-color: #323232; /* Dark background for toast */
+    color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    font-size: 0.9em;
+}
+#status-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+#status-message.error { background-color: #d9534f; }
+#status-message.info { background-color: #5cb85c; }
+
+
+/* MCQ Question Styling (within #mcq-area & #advanced-mcq-area) */
+.mcq-question {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mcq-question p {
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+}
+.mcq-question label {
+    display: flex; /* Use flex for better alignment of radio and text */
+    align-items: center;
+    margin-left: 0;
+    padding: 6px 0;
+    font-weight: normal;
+    color: #555;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.1s ease;
+}
+.mcq-question label:hover {
+    background-color: #f7f7f7;
+}
+.mcq-question input[type="radio"] {
+    margin-right: 10px;
+    /* Custom radio button styling can be added here if desired */
+    width: 16px; /* Adjust size */
+    height: 16px; /* Adjust size */
+    vertical-align: middle; /* Better alignment */
+}
