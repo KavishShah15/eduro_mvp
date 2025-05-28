@@ -1,5 +1,5 @@
 # backend/app.py
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import hardcoded_data
 # import mock_gemini # Remove or comment out old mock import
