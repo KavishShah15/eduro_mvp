@@ -167,5 +167,7 @@ def api_evaluate_problem_answer():
         return jsonify({"correct": False, "message": "Incorrect. Please review this section and try again."})
 
 if __name__ == '__main__':
-    app.logger.info("Starting Flask app...")
-    app.run(debug=True, port=5001)
+    # This part is for local development only.
+    # Gunicorn will directly run the 'app' object in production.
+    app.logger.info("Starting Flask app for local development...")
+    app.run(debug=True, host='0.0.0.0', port=5001) # Added host='0.0.0.0' for broader accessibility if needed locally
