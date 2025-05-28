@@ -5,13 +5,19 @@ import hardcoded_data
 # import mock_gemini # Remove or comment out old mock import
 import gemini_interaction as gemini_api # Use the new Gemini interaction module
 import logging # For logging from app.py as well
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 # Configure basic logging for Flask app
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(module)s - %(message)s')
 
+@app.route('/')
+def serve_index():
+    app.logger.info("GET / - Serving index.html")
+    # 'index.html' is directly in the 'static_folder' specified above
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/api/subjects', methods=['GET'])
 def api_get_subjects():
@@ -167,7 +173,7 @@ def api_evaluate_problem_answer():
         return jsonify({"correct": False, "message": "Incorrect. Please review this section and try again."})
 
 if __name__ == '__main__':
-    # This part is for local development only.
-    # Gunicorn will directly run the 'app' object in production.
     app.logger.info("Starting Flask app for local development...")
-    app.run(debug=True, host='0.0.0.0', port=5001) # Added host='0.0.0.0' for broader accessibility if needed locally
+    # For local dev, you might need to adjust port if 5001 is taken
+    # The host '0.0.0.0' makes it accessible on your network
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 5001)))
