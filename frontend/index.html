@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>AI Educational Tutor</h1>
+        </header>
+
+        <main class="main-content">
+            <div id="selection-area">
+                <h2>Choose Your Topic</h2>
+                <div>
+                    <label for="subject-select">Subject:</label>
+                    <select id="subject-select">
+                        <option value="">--Select Subject--</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="topic-select">Topic:</label>
+                    <select id="topic-select" disabled>
+                        <option value="">--Select Topic--</option>
+                    </select>
+                </div>
+                <button id="start-learning-btn" disabled>Start Learning</button>
+            </div>
+
+            <div id="mcq-area" class="hidden">
+                <h2>Initial Quiz</h2>
+                <div id="mcq-questions"></div>
+                <button id="submit-mcq-btn">Submit Answers</button>
+            </div>
+
+            <div id="learning-flow-area" class="hidden">
+                <div id="chat-log-container"> 
+                    <div id="chat-log">
+                        <!-- Chat messages will appear here -->
+                    </div>
+                </div>
+                <div id="problem-options-area" class="problem-options hidden">
+                    <!-- Problem MCQ options will be rendered here as buttons -->
+                </div>
+                <div id="learning-controls">
+                    <div id="user-input-area" class="hidden">
+                        <input type="text" id="user-chat-input" placeholder="Type 'next' or click the button">
+                        <button id="send-chat-btn">Send</button>
+                    </div>
+                    <button id="next-step-btn" class="hidden">Next</button>
+                </div>
+            </div>
+            
+            <div id="advanced-mcq-area" class="hidden">
+                <h2>Advanced Quiz</h2>
+                <div id="advanced-mcq-questions"></div>
+                <button id="submit-advanced-mcq-btn">Submit Advanced Quiz</button>
+            </div>
+        </main>
+        
+        <div id="status-message" class="status"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
