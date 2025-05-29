@@ -1,5 +1,5 @@
-const API_BASE_URL = 'http://localhost:5001/api'; // Backend URL
-
+// const API_BASE_URL = 'http://localhost:5001/api'; // Backend URL
+const API_BASE_URL = '/api';
 // DOM Elements
 const subjectSelect = document.getElementById('subject-select');
 const topicSelect = document.getElementById('topic-select');
